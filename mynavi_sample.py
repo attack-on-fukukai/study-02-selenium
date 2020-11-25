@@ -3,6 +3,7 @@ from selenium.webdriver import Chrome, ChromeOptions
 import time
 import pandas as pd
 import logging
+import math
 
 # ログレベルを DEBUG に変更
 logging.basicConfig(filename="LogFile.txt",encoding="utf-8",level=logging.INFO,format=" %(asctime)s - %(levelname)s - %(message)s")
@@ -66,6 +67,10 @@ def main(search_keyword):
 
     logging.info("ヒット数：{}".format(_resultNum))
 
+    # 全ページ数を求める
+    allPageCnt = math.ceil(resultNum / 50)
+    logging.info("全ページ数：{}".format(allPageCnt))
+
     if resultNum > 0:
     # 入力したキーワードで検索がヒットした場合        
 
@@ -82,7 +87,7 @@ def main(search_keyword):
         body4s = []
 
         cnt = 0
-        for page in range(1,3):
+        for page in range(1,allPageCnt):
         # 2ページ目まで
             logging.info("{}ページ目を読込み".format(page))
 
