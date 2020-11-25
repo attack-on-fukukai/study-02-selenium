@@ -87,7 +87,7 @@ def main(search_keyword):
         body4s = []
 
         cnt = 0
-        for page in range(1,allPageCnt):
+        for page in range(1,allPageCnt+1):
         # 2ページ目まで
             logging.info("{}ページ目を読込み".format(page))
 
