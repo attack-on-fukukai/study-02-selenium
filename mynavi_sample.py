@@ -67,10 +67,6 @@ def main(search_keyword):
 
     logging.info("ヒット数：{}".format(_resultNum))
 
-    # 全ページ数を求める
-    allPageCnt = math.ceil(resultNum / 50)
-    logging.info("全ページ数：{}".format(allPageCnt))
-
     if resultNum > 0:
     # 入力したキーワードで検索がヒットした場合        
 
@@ -86,12 +82,14 @@ def main(search_keyword):
         body3s = []
         body4s = []
 
+        loopFlg = True
+        page = 0
         cnt = 0
-        for page in range(1,allPageCnt+1):
-        # 2ページ目まで
+
+        while loopFlg:
+            page += 1
             logging.info("{}ページ目を読込み".format(page))
 
-            driver.get("https://tenshoku.mynavi.jp/list/kw{}/pg{}/?jobsearchType=14&searchType=18".format(search_keyword,page))
             elem_cassetteRecruit__contents = driver.find_elements_by_class_name("cassetteRecruit__content")
             for elem_cassetteRecruit__content in elem_cassetteRecruit__contents:
             #1案件ずつ
@@ -141,9 +139,13 @@ def main(search_keyword):
                 body3s.append(body3)
                 body4s.append(body4)
             
-            if resultNum <= 50:
-                break
-
+            # 最終ページか判断
+            arrowLeft = driver.find_elements_by_class_name("iconFont--arrowLeft")
+            if len(arrowLeft) == 0:
+                loopFlg = False
+            else:
+                #次ページに遷移する
+                arrowLeft[0].click()
 
         df = pd.DataFrame()    
         df["会社名"] = names
