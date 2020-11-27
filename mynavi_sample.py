@@ -3,7 +3,6 @@ from selenium.webdriver import Chrome, ChromeOptions
 import time
 import pandas as pd
 import logging
-import math
 
 # ログレベルを DEBUG に変更
 logging.basicConfig(filename="LogFile.txt",encoding="utf-8",level=logging.INFO,format=" %(asctime)s - %(levelname)s - %(message)s")
