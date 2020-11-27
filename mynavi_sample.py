@@ -1,5 +1,6 @@
 import os
 from selenium.webdriver import Chrome, ChromeOptions
+import time
 import pandas as pd
 import logging
 
